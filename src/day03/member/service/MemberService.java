@@ -27,9 +27,9 @@ public class MemberService {
         return mList;
     }
 
-    public Member selectOneBy(String input, int index) {
+    public Member selectOneBy(String input) {
         Connection conn = JDBCTemplate.getConnection();
-        Member member = mDao.selectOneById(conn, input,index);
+        Member member = mDao.selectOneById(conn, input);
         JDBCTemplate.close(conn);
         return member;
     }

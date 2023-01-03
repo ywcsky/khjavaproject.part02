@@ -21,7 +21,7 @@ public class MemberRun {
                     mView.showAll(mCon.printAll(),"전체 회원 조회");
                     break;
                 case 2 :
-                    member = mCon.printOneBy(mView.inputDataSearch("조회할 아이디"),1);
+                    member = mCon.printOneBy(mView.inputDataSearch("조회할 아이디"));
                     mView.showCondition(member,"아이디로 조회");
                     break;
                 case 3 :
@@ -38,7 +38,7 @@ public class MemberRun {
                     break;
                 case 5 :
                     memberId = mView.inputDataSearch("수정할 아이디");
-                    member = mCon.printOneBy(memberId,1);
+                    member = mCon.printOneBy(memberId);
                     if(member != null){
                         member = mView.modifyMember(memberId);
                         result = mCon.modifyMember(member);

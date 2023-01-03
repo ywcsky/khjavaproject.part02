@@ -1,15 +1,15 @@
 package common;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class JDBCTemplate {
-    private static String DRIVER_NAME = "oracle.jdbc.driver.OracleDriver";
-    private static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static String USER = "STUDENT";
-    private static String PASS = "STUDENT";
-
+    private static Properties prop;
     // 싱글톤 패턴
     private static Connection conn;
 
@@ -22,16 +22,20 @@ public class JDBCTemplate {
 
     public static Connection getConnection() {
         try {
+            FileReader fr = new FileReader("src/resources/dev.properties");
+            prop = new Properties();
+            prop.load(fr);
+            String url = prop.getProperty("url"), user = prop.getProperty("user"),driver = prop.getProperty("driver"),password = prop.getProperty("pass");
             if (conn == null || conn.isClosed()) {
                 try {
-                    Class.forName(DRIVER_NAME);
-                    conn = DriverManager.getConnection(URL, USER, PASS);
+                    Class.forName(driver);
+                    conn = DriverManager.getConnection(url,user,password);
                     conn.setAutoCommit(false);
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
         return conn;

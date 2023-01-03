@@ -35,8 +35,8 @@ public class MemberController {
         List<Member> mList = mService.selectAllByName(memberName);
         return mList;
     }
-    public Member printOneBy(String input, int index) {
-        Member member = mService.selectOneBy(input,index);
+    public Member printOneBy(String input) {
+        Member member = mService.selectOneBy(input);
         return member;
     }
 }
